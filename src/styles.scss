@@ -1,29 +1,107 @@
 
 // Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
+// Material 3 Design System
 @use '@angular/material' as mat;
 
-// AL-DAYN Theme Colors
+// Custom AL-DAYN Color Palette
+$al-dayn-primary: (
+  50: #f7f4f1,
+  100: #ebe5de,
+  200: #ddd4c9,
+  300: #cfc3b4,
+  400: #c4b49f,
+  500: #B9A08A,  // Primary
+  600: #a8917b,
+  700: #937f6a,
+  800: #7e6d5a,
+  900: #5f5244,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+);
+
+$al-dayn-tertiary: (
+  50: #f3f5ed,
+  100: #e1e7d3,
+  200: #cdd8b6,
+  300: #b9c999,
+  400: #a4b484,
+  500: #8F9E6F,  // Tertiary
+  600: #7d8b61,
+  700: #6a7652,
+  800: #576144,
+  900: #3f4731,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+);
+
+// AL-DAYN Theme Colors (Material 3 inspired)
 :root {
-  --primary-navy: #1a237e;
-  --primary-blue: #1565c0;
-  --status-unpaid: #c62828;
-  --status-paid: #2e7d32;
-  --bg-light: #f5f5f5;
-  --card-bg: #ffffff;
-  --text-dark: #212121;
-  --text-light: #ffffff;
+  // Primary palette - Warm Beige/Taupe
+  --primary: #B9A08A;
+  --primary-light: #d4c4b3;
+  --primary-dark: #937f6a;
+  --primary-container: #f7f4f1;
+  --on-primary: #ffffff;
+  --on-primary-container: #3d2e1f;
+
+  // Tertiary palette - Sage Green
+  --tertiary: #8F9E6F;
+  --tertiary-light: #b5c49a;
+  --tertiary-dark: #6a7652;
+  --tertiary-container: #e8eedd;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #1f2817;
+
+  // Status colors - Lighter, more subtle
+  --status-unpaid: #F5DDD4;      // Very light coral
+  --status-unpaid-text: #9D5A3C; // Muted brown text
+  --status-paid: #D4E8D2;        // Very light sage
+  --status-paid-text: #3D6838;   // Muted green text
+  --status-pending: #EDE6DA;     // Very light beige
+  --status-pending-text: #6B5D4A;
+
+  // Surface colors
+  --surface: #FEFBF7;
+  --surface-variant: #F5F1EA;
+  --on-surface: #1C1B1F;
+  --on-surface-variant: #4A4458;
+  --outline: #79747E;
+  --outline-variant: #CAC4D0;
+
+  // Background
+  --bg-light: #FAF8F5;
+  --card-bg: #FFFFFF;
+  --text-dark: #2C2C2C;
+  --text-light: #FFFFFF;
+  --text-muted: #6B6B6B;
 }
 
 html {
   height: 100%;
   @include mat.theme((
     color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: $al-dayn-primary,
+      tertiary: $al-dayn-tertiary,
     ),
     typography: Roboto,
     density: 0,
@@ -34,207 +112,335 @@ body {
   color-scheme: light;
   background-color: var(--bg-light);
   color: var(--text-dark);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
   height: 100%;
-}
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-// App Container - Mobile First
+  // Modern centering for desktop
+  display: block; // Reset flex
+  overflow: hidden; // Default: No scrollbar
+  
+  // Only show body scrollbar if screen is too short for our 750px min-height
+  @media (max-height: 850px) {
+    overflow: auto;
+  }
+
+  @media (min-width: 768px) {
+    background-color: #f0f0f0; 
+  }
+}
+// App Container - Mobile First with subtle shadow
 .app-container {
   max-width: 420px;
   margin: 0 auto;
   min-height: 100vh;
   background: var(--card-bg);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 24px rgba(185, 160, 138, 0.15);
+  position: relative;
+  overflow-y: auto; // Ensure scrolling works if content overflows fixed height
+
+  @media (min-width: 768px) {
+    height: 75vh;        // 75% height
+    min-height: 750px;   // strict min-height
+    margin-top: 5vh;     // 5% top margin
+    // Bottom space will be natural remainder (approx 20%)
+    
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+
+  // Hide scrollbar but allow scrolling
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-// Header Styles
+// Header Styles - Clean solid color
 .app-header {
-  background: var(--primary-navy);
+  background: var(--primary);
   color: var(--text-light);
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 12px rgba(185, 160, 138, 0.3);
 
   h1 {
     margin: 0;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
 
   .header-icon {
     color: var(--text-light);
     cursor: pointer;
-  }
-}
-
-// Status Badges
-.status-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-
-  &.unpaid {
-    background: var(--status-unpaid);
-    color: white;
-  }
-
-  &.paid {
-    background: var(--status-paid);
-    color: white;
-  }
-}
-
-// Card Styles
-.debt-card {
-  background: var(--card-bg);
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 12px 16px;
-
-  .creditor-name {
-    font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 4px;
-  }
-
-  .debt-details {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .debt-actions {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-top: 8px;
-  }
-
-  .view-evidence {
-    color: var(--primary-blue);
-    font-size: 13px;
-    cursor: pointer;
-    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 
     &:hover {
-      text-decoration: underline;
+      opacity: 1;
+      transform: scale(1.1);
     }
   }
 }
 
-// Total Card
-.total-card {
-  background: var(--card-bg);
-  border: 2px solid var(--primary-navy);
-  border-radius: 8px;
-  padding: 20px;
-  margin: 16px;
-  text-align: center;
+// Status Badges - Light, subtle style
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease;
 
-  .total-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary-navy);
-    text-transform: uppercase;
-    margin-bottom: 4px;
+  &.unpaid {
+    background: var(--status-unpaid);
+    color: var(--status-unpaid-text);
   }
 
-  .total-message {
-    font-size: 12px;
-    color: #666;
-    font-style: italic;
-    margin-bottom: 12px;
+  &.paid {
+    background: var(--status-paid);
+    color: var(--status-paid-text);
   }
 
-  .total-amount {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--text-dark);
+  &.pending {
+    background: var(--status-pending);
+    color: var(--status-pending-text);
   }
 }
 
-// FAB Button
+// Card Styles - Shadow-based elevation
+.debt-card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  // Hover effect removed per user request
+
+  .creditor-name {
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+  }
+
+  .debt-details {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .debt-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .view-evidence {
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--primary-container);
+    }
+  }
+}
+
+// Total Card - Shadow-based style
+.total-card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 6px;
+  padding: 28px 24px;
+  margin: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary);
+  }
+
+  .total-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .total-message {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .total-amount {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: -1px;
+  }
+}
+
+// FAB Button - Custom styled
 .fab-container {
-  position: fixed;
+  position: absolute; // Relative to .app-container
   bottom: 24px;
-  right: calc(50% - 180px);
+  right: 24px;
   z-index: 100;
 
-  @media (max-width: 420px) {
-    right: 24px;
+  // Removed media query and calculation as it's now absolute to container
+
+  button {
+    background: var(--tertiary) !important;
+    box-shadow: 0 6px 20px rgba(143, 158, 111, 0.4) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 28px rgba(143, 158, 111, 0.5) !important;
+    }
+
+    mat-icon {
+      color: white;
+    }
   }
 }
 
 // Legacy Settings Styles
 .legacy-container {
-  padding: 24px 16px;
+  padding: 32px 20px;
   text-align: center;
 
   .legacy-instruction {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 24px;
-    line-height: 1.5;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
   }
 
   .legacy-code {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: 4px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 6px;
     color: var(--text-dark);
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 24px 20px;
+    background: var(--surface-variant);
+    border-radius: 6px;
+    margin-bottom: 24px;
+    border: 2px dashed var(--primary);
   }
 
   .code-actions {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
+
+    button {
+      background-color: var(--primary-container) !important;
+      color: var(--primary-dark) !important;
+      border: none !important;
+      border-radius: 6px !important;
+      padding: 10px 24px !important;
+      font-weight: 500 !important;
+
+      &:hover {
+        background-color: var(--primary-light) !important;
+      }
+    }
   }
 }
 
 // Guardian Portal Styles
 .guardian-container {
-  padding: 40px 24px;
+  padding: 48px 28px;
   text-align: center;
 
   .guardian-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--primary-navy);
-    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
   }
 
   .guardian-instruction {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 32px;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    line-height: 1.5;
   }
 
   .code-input {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+
+    input {
+      text-align: center;
+      font-size: 20px !important;
+      letter-spacing: 3px;
+      font-weight: 500;
+    }
+  }
+
+  .view-btn {
+    background: var(--primary) !important;
+    border-radius: 6px !important;
+    padding: 14px 32px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 16px rgba(185, 160, 138, 0.3) !important;
   }
 }
 
-// Dialog Styles
+// Dialog Styles - Modern look
 .add-debt-dialog {
+  .mat-mdc-dialog-container {
+    border-radius: 6px !important;
+    background-color: var(--card-bg) !important; // Ensure solid background
+  }
+
   .mat-mdc-dialog-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--outline-variant);
   }
 
   .form-row {
     display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 16px;
+    margin-bottom: 20px;
 
     mat-form-field {
       flex: 1;
@@ -242,14 +448,54 @@ body {
   }
 
   .type-selection {
-    margin: 16px 0;
+    margin: 20px 0;
+
+    mat-radio-button {
+      --mdc-radio-selected-icon-color: var(--primary);
+      --mdc-radio-selected-hover-icon-color: var(--primary-dark);
+    }
   }
 
   .dialog-actions {
     display: flex;
     justify-content: space-between;
-    padding-top: 16px;
-    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    border-top: 1px solid var(--outline-variant);
+
+    button[mat-button] {
+      color: var(--text-muted) !important;
+    }
+
+    button[mat-flat-button] {
+      background: var(--tertiary) !important;
+      border-radius: 6px !important;
+    }
   }
 }
 
+// Section title style
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+// Scrollbar styling (Global)
+::-webkit-scrollbar {
+  width: 4px; // Thinner
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; // Invisible track
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E0E0E0; // Very subtle grey
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #BDBDBD;
+}

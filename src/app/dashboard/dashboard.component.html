@@ -1,7 +1,7 @@
 <div class="app-container">
   <!-- Header -->
   <header class="app-header">
-    <h1>AL-DAYN (The Ledger)</h1>
+    <h1>Douyoune (ديون)</h1>
     <mat-icon class="header-icon" (click)="openLegacySettings()">settings</mat-icon>
   </header>
 
@@ -24,7 +24,7 @@
           <span class="status-badge" [class.unpaid]="debt.status === 'unpaid'" [class.paid]="debt.status === 'paid'">
             Status: {{ debt.status | titlecase }}
           </span>
-          <span class="view-evidence" (click)="viewEvidence(debt)">[ View Evidence ]</span>
+          <span class="view-evidence" (click)="viewEvidence(debt)">View Evidence</span>
         </div>
       </div>
     }
