@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Add New Debt</h2>
+
+<mat-dialog-content>
+  <!-- Creditor Name -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Creditor Name</mat-label>
+    <input matInput [(ngModel)]="debt.creditorName" placeholder="e.g. Cousin Omar">
+  </mat-form-field>
+
+  <!-- Amount and Currency Row -->
+  <div class="form-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" [(ngModel)]="debt.amount" placeholder="1000">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="currency-field">
+      <mat-label>Currency</mat-label>
+      <mat-select [(ngModel)]="debt.currency">
+        @for (curr of currencies; track curr) {
+          <mat-option [value]="curr">{{ curr }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Type Selection -->
+  <div class="type-selection">
+    <label class="type-label">Type:</label>
+    <mat-radio-group [(ngModel)]="debt.type">
+      <mat-radio-button value="i_owe_them">I owe them</mat-radio-button>
+      <mat-radio-button value="they_owe_me">They owe me</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <!-- Notes/Evidence -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Notes/Evidence</mat-label>
+    <textarea matInput [(ngModel)]="debt.notes" rows="3" 
+              placeholder="Borrowed for car repair.&#10;Witness: Ali"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()">[ CANCEL ]</button>
+  <button mat-flat-button color="primary" (click)="onSave()">[ SAVE RECORD ]</button>
+</mat-dialog-actions>

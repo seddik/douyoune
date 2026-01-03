@@ -6,6 +6,18 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+// AL-DAYN Theme Colors
+:root {
+  --primary-navy: #1a237e;
+  --primary-blue: #1565c0;
+  --status-unpaid: #c62828;
+  --status-paid: #2e7d32;
+  --bg-light: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-dark: #212121;
+  --text-light: #ffffff;
+}
+
 html {
   height: 100%;
   @include mat.theme((
@@ -19,20 +31,225 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
   color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   height: 100%;
 }
-/* You can add global styles to this file, and also import other style files */
+
+// App Container - Mobile First
+.app-container {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--card-bg);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+// Header Styles
+.app-header {
+  background: var(--primary-navy);
+  color: var(--text-light);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .header-icon {
+    color: var(--text-light);
+    cursor: pointer;
+  }
+}
+
+// Status Badges
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &.unpaid {
+    background: var(--status-unpaid);
+    color: white;
+  }
+
+  &.paid {
+    background: var(--status-paid);
+    color: white;
+  }
+}
+
+// Card Styles
+.debt-card {
+  background: var(--card-bg);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 16px;
+
+  .creditor-name {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .debt-details {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .debt-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .view-evidence {
+    color: var(--primary-blue);
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Total Card
+.total-card {
+  background: var(--card-bg);
+  border: 2px solid var(--primary-navy);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px;
+  text-align: center;
+
+  .total-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-navy);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .total-message {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .total-amount {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+}
+
+// FAB Button
+.fab-container {
+  position: fixed;
+  bottom: 24px;
+  right: calc(50% - 180px);
+  z-index: 100;
+
+  @media (max-width: 420px) {
+    right: 24px;
+  }
+}
+
+// Legacy Settings Styles
+.legacy-container {
+  padding: 24px 16px;
+  text-align: center;
+
+  .legacy-instruction {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .legacy-code {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--text-dark);
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .code-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+// Guardian Portal Styles
+.guardian-container {
+  padding: 40px 24px;
+  text-align: center;
+
+  .guardian-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-navy);
+    margin-bottom: 8px;
+  }
+
+  .guardian-instruction {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 32px;
+  }
+
+  .code-input {
+    margin-bottom: 24px;
+  }
+}
+
+// Dialog Styles
+.add-debt-dialog {
+  .mat-mdc-dialog-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    mat-form-field {
+      flex: 1;
+    }
+  }
+
+  .type-selection {
+    margin: 16px 0;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+}
+

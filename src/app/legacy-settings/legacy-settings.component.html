@@ -1,0 +1,26 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <mat-icon class="header-icon" (click)="goBack()">arrow_back</mat-icon>
+    <h1>Legacy Settings</h1>
+    <span></span>
+  </header>
+
+  <!-- Content -->
+  <div class="legacy-container">
+    <h2 class="section-title">SHARE THIS CODE WITH YOUR HEIRS.</h2>
+    
+    <p class="legacy-instruction">
+      If you pass away, your family can use this code to view your debts without needing your password.
+    </p>
+
+    <div class="legacy-code">
+      {{ legacyCode }}
+    </div>
+
+    <div class="code-actions">
+      <button mat-stroked-button (click)="copyCode()">[ COPY ]</button>
+      <button mat-stroked-button (click)="regenerateCode()">[ REGENERATE ]</button>
+    </div>
+  </div>
+</div>

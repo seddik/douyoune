@@ -1,0 +1,39 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <h1>AL-DAYN (The Ledger)</h1>
+    <mat-icon class="header-icon" (click)="openLegacySettings()">settings</mat-icon>
+  </header>
+
+  <!-- Total Outstanding Debt Card -->
+  <div class="total-card">
+    <div class="total-label">TOTAL OUTSTANDING DEBT</div>
+    <div class="total-message">Please forgive me if I pass away</div>
+    <div class="total-amount">{{ formatAmount(totalOutstanding) }}</div>
+  </div>
+
+  <!-- Debt List -->
+  <div class="debt-list">
+    @for (debt of debts; track debt.id) {
+      <div class="debt-card">
+        <div class="creditor-name">{{ debt.creditorName }}</div>
+        <div class="debt-details">
+          {{ formatAmount(debt.amount) }} - Due: {{ debt.dueDate }}
+        </div>
+        <div class="debt-actions">
+          <span class="status-badge" [class.unpaid]="debt.status === 'unpaid'" [class.paid]="debt.status === 'paid'">
+            Status: {{ debt.status | titlecase }}
+          </span>
+          <span class="view-evidence" (click)="viewEvidence(debt)">[ View Evidence ]</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- FAB Button -->
+  <div class="fab-container">
+    <button mat-fab color="primary" (click)="openAddDebtDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
