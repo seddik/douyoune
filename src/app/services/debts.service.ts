@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DebtsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:6010/api/debts/list';
+  private apiUrl = 'http://localhost:6010/api/debts/demo';
 
   getDebtsList(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);

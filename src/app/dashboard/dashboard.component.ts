@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AddDebtDialogComponent } from '../add-debt-dialog/add-debt-dialog.component';
+import { inject } from '@angular/core';
+import { DebtsService } from '../services/debts.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,50 +17,26 @@ import { AddDebtDialogComponent } from '../add-debt-dialog/add-debt-dialog.compo
   styleUrl: './dashboard.component.scss'
 })
 
+
 export class DashboardComponent implements OnInit {
-  // Mock data - will be replaced with API later
+
+  private debtsService = inject(DebtsService);
+
   ngOnInit() {
-    console.log("wink");
+    this.debtsService.getDebtsList().subscribe((resp) => {
+      this.debts = resp;
+      console.log(this.debts[0].id);
+    });
+
   }
-  debts: any[] = [
-    {
-      id: 1,
-      creditorName: 'Uncle Ahmed',
-      amount: 5000,
-      currency: 'DZD',
-      dueDate: 'Jan 2026',
-      status: 'unpaid',
-      type: 'i_owe_them',
-      notes: 'Borrowed for car repair. Witness: Ali'
-    },
-    {
-      id: 2,
-      creditorName: 'Bank Loan',
-      amount: 10000,
-      currency: 'DZD',
-      dueDate: 'Monthly',
-      status: 'unpaid',
-      type: 'i_owe_them',
-      notes: 'Home loan installment'
-    },
-    {
-      id: 3,
-      creditorName: 'Cousin Omar',
-      amount: 2000,
-      currency: 'DZD',
-      dueDate: 'Feb 2026',
-      status: 'paid',
-      type: 'they_owe_me',
-      notes: 'Lent for wedding expenses'
-    }
-  ];
+
+  debts: any[] = [];
+
 
   constructor(private dialog: MatDialog, private router: Router) { }
 
-  get totalOutstanding(): number {
-    return this.debts
-      .filter(d => d.status === 'unpaid' && d.type === 'i_owe_them')
-      .reduce((sum, d) => sum + d.amount, 0);
+  get totalAmount(): number {
+    return this.debts.reduce((total, debt) => total + (debt.amount * 1), 0);
   }
 
   openAddDebtDialog(): void {
@@ -87,6 +66,7 @@ export class DashboardComponent implements OnInit {
   }
 
   formatAmount(amount: number): string {
-    return '$ ' + amount.toLocaleString();
+    return 'DA ' + amount.toLocaleString();
   }
+
 }
