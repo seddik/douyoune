@@ -15,18 +15,18 @@
   <!-- Debt List -->
   <div class="debt-list">
     @for (debt of debts; track debt.id) {
-      <div class="debt-card">
-        <div class="creditor-name">{{ debt.creditorName }}</div>
-        <div class="debt-details">
-          {{ formatAmount(debt.amount) }} - Due: {{ debt.dueDate }}
-        </div>
-        <div class="debt-actions">
-          <span class="status-badge" [class.unpaid]="debt.status === 'unpaid'" [class.paid]="debt.status === 'paid'">
-            Status: {{ debt.status | titlecase }}
-          </span>
-          <span class="view-evidence" (click)="viewEvidence(debt)">View Evidence</span>
-        </div>
+    <div class="debt-card">
+      <div class="creditor-name">{{ debt.creditorName }}</div>
+      <div class="debt-details">
+        {{ formatAmount(debt.amount) }} - Due: {{ debt.dueDate }}
       </div>
+      <div class="debt-actions">
+        <span class="status-badge" [class.unpaid]="debt.status === 'unpaid'" [class.paid]="debt.status === 'paid'">
+          Status: {{ debt.status | titlecase }}
+        </span>
+        <span class="view-evidence" (click)="viewEvidence(debt)">View Evidence</span>
+      </div>
+    </div>
     }
   </div>
 

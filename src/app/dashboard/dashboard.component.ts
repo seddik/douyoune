@@ -13,8 +13,12 @@ import { AddDebtDialogComponent } from '../add-debt-dialog/add-debt-dialog.compo
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+
+export class DashboardComponent implements OnInit {
   // Mock data - will be replaced with API later
+  ngOnInit() {
+    console.log("wink");
+  }
   debts: any[] = [
     {
       id: 1,
@@ -48,7 +52,7 @@ export class DashboardComponent {
     }
   ];
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   get totalOutstanding(): number {
     return this.debts

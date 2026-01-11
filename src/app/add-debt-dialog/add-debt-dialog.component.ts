@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -24,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './add-debt-dialog.component.html',
   styleUrl: './add-debt-dialog.component.scss'
 })
-export class AddDebtDialogComponent {
+export class AddDebtDialogComponent implements OnInit {
   // Form data
   debt: any = {
     creditorName: '',
@@ -37,7 +37,11 @@ export class AddDebtDialogComponent {
 
   currencies = ['DZD', 'USD', 'EUR', 'SAR'];
 
-  constructor(private dialogRef: MatDialogRef<AddDebtDialogComponent>) {}
+  constructor(private dialogRef: MatDialogRef<AddDebtDialogComponent>) { }
+
+  ngOnInit() {
+    console.log("wink");
+  }
 
   onCancel(): void {
     this.dialogRef.close();

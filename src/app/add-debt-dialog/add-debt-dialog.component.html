@@ -18,7 +18,7 @@
       <mat-label>Currency</mat-label>
       <mat-select [(ngModel)]="debt.currency">
         @for (curr of currencies; track curr) {
-          <mat-option [value]="curr">{{ curr }}</mat-option>
+        <mat-option [value]="curr">{{ curr }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -36,8 +36,8 @@
   <!-- Notes/Evidence -->
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Notes/Evidence</mat-label>
-    <textarea matInput [(ngModel)]="debt.notes" rows="3" 
-              placeholder="Borrowed for car repair.&#10;Witness: Ali"></textarea>
+    <textarea matInput [(ngModel)]="debt.notes" rows="3"
+      placeholder="Borrowed for car repair.&#10;Witness: Ali"></textarea>
   </mat-form-field>
 </mat-dialog-content>
 
