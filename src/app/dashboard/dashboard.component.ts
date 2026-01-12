@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
     this.debtsService.getDebtsList().subscribe((resp) => {
       this.debts = resp;
       console.log(this.debts[0].id);
+
     });
 
   }
