@@ -27,7 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class AddDebtDialogComponent implements OnInit {
   // Form data
   debt: any = {
-    creditorName: '',
+    name: '',
     amount: null,
     currency: 'DZD',
     type: 'i_owe_them',
@@ -48,7 +48,7 @@ export class AddDebtDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.debt.creditorName && this.debt.amount) {
+    if (this.debt.name && this.debt.amount) {
       this.dialogRef.close(this.debt);
     }
   }

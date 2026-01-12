@@ -6,7 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-
+import { inject } from '@angular/core';
+import { DebtsService } from '../services/debts.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -28,10 +29,25 @@ export class LoginComponent {
   isLoading = false;
   hidePassword = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private debtsService: DebtsService) { }
 
   onLogin(): void {
     this.isLoading = true;
-    
+    this.debtsService.login(this.username, this.password).subscribe({
+      next: (resp: any) => {
+        this.isLoading = false;
+        //console.log('Login success', resp);
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('token', resp.token);
+        }
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        // console.error('Login failed', err);
+      }
+    });
+
+
   }
 }

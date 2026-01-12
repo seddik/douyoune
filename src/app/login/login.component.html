@@ -19,27 +19,22 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Password</mat-label>
-        <input matInput 
-               [(ngModel)]="password" 
-               [type]="hidePassword ? 'password' : 'text'"
-               placeholder="Enter your password">
+        <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Enter your password">
         <mat-icon matPrefix>lock</mat-icon>
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
 
-      <button mat-flat-button 
-              color="primary" 
-              (click)="onLogin()" 
-              class="login-btn"
-              [disabled]="isLoading || !username.trim() || !password.trim()">
+      <button mat-flat-button color="primary" (click)="onLogin()" class="login-btn"
+        [disabled]="isLoading || !username.trim() || !password.trim()">
         <span *ngIf="!isLoading">Sign In</span>
         <span *ngIf="isLoading">Signing in...</span>
       </button>
 
       <p class="register-link">
-        Don't have an account? <a href="#">Register</a>
+        Don't have an account? <a routerLink="/register">Register</a>
       </p>
     </div>
 

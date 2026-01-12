@@ -25,22 +25,18 @@
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Password</mat-label>
-        <input matInput 
-               [(ngModel)]="password" 
-               [type]="hidePassword ? 'password' : 'text'"
-               placeholder="Create a password">
+        <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Create a password">
         <mat-icon matPrefix>lock</mat-icon>
         <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <!-- <mat-form-field appearance="outline" class="form-field">
         <mat-label>Confirm Password</mat-label>
-        <input matInput 
-               [(ngModel)]="confirmPassword" 
-               [type]="hideConfirmPassword ? 'password' : 'text'"
-               placeholder="Confirm your password">
+        <input matInput [(ngModel)]="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'"
+          placeholder="Confirm your password">
         <mat-icon matPrefix>lock_outline</mat-icon>
         <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
           <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -49,18 +45,14 @@
 
       <p class="password-mismatch" *ngIf="confirmPassword && !passwordsMatch">
         Passwords do not match
-      </p>
+      </p> -->
 
-      <button mat-flat-button 
-              color="primary" 
-              (click)="onRegister()" 
-              class="register-btn"
-              [disabled]="!formValid">
+      <button mat-flat-button color="primary" (click)="onRegister()" class="register-btn" [disabled]="!formValid">
         Create Account
       </button>
 
       <p class="login-link">
-        Already have an account? <a href="#">Sign In</a>
+        Already have an account? <a routerLink="/login">Sign In</a>
       </p>
     </div>
   </div>

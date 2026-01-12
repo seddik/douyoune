@@ -48,14 +48,14 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.debts.push({
-          id: this.debts.length + 1,
-          ...result,
-          status: 'unpaid'
+        this.debtsService.addDebt(result).subscribe((resp) => {
+          this.debts.push(resp);
+          console.log(resp);
         });
       }
     });
   }
+
 
   openLegacySettings(): void {
     this.router.navigate(['/legacy-settings']);
