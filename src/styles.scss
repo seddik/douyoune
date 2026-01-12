@@ -3,8 +3,8 @@
 // Material 3 Design System
 @use '@angular/material' as mat;
 
-// Custom AL-DAYN Color Palette
-$al-dayn-primary: (
+// Custom Douyoune Color Palette
+$douyoune-primary: (
   50: #f7f4f1,
   100: #ebe5de,
   200: #ddd4c9,
@@ -29,7 +29,7 @@ $al-dayn-primary: (
   )
 );
 
-$al-dayn-tertiary: (
+$douyoune-tertiary: (
   50: #f3f5ed,
   100: #e1e7d3,
   200: #cdd8b6,
@@ -54,7 +54,7 @@ $al-dayn-tertiary: (
   )
 );
 
-// AL-DAYN Theme Colors (Material 3 inspired)
+// Douyoune Theme Colors (Material 3 inspired)
 :root {
   // Primary palette - Warm Beige/Taupe
   --primary: #B9A08A;
@@ -100,8 +100,8 @@ html {
   height: 100%;
   @include mat.theme((
     color: (
-      primary: $al-dayn-primary,
-      tertiary: $al-dayn-tertiary,
+      primary: $douyoune-primary,
+      tertiary: $douyoune-tertiary,
     ),
     typography: Roboto,
     density: 0,

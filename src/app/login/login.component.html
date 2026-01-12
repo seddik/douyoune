@@ -1,0 +1,60 @@
+<div class="app-container">
+  <div class="login-container">
+    <!-- Logo/Brand -->
+    <div class="login-header">
+      <div class="logo-icon">
+        <mat-icon>account_balance_wallet</mat-icon>
+      </div>
+      <h1 class="app-title">Douyoune</h1>
+      <p class="app-subtitle">Debt Ledger Management</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="username" placeholder="Enter your username">
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input matInput 
+               [(ngModel)]="password" 
+               [type]="hidePassword ? 'password' : 'text'"
+               placeholder="Enter your password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-flat-button 
+              color="primary" 
+              (click)="onLogin()" 
+              class="login-btn"
+              [disabled]="isLoading || !username.trim() || !password.trim()">
+        <span *ngIf="!isLoading">Sign In</span>
+        <span *ngIf="isLoading">Signing in...</span>
+      </button>
+
+      <p class="register-link">
+        Don't have an account? <a href="#">Register</a>
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider">
+      <span>or</span>
+    </div>
+
+    <!-- Guardian Access Link -->
+    <div class="guardian-link">
+      <p>Are you an heir accessing a ledger?</p>
+      <a routerLink="/guardian" class="heir-access-link">
+        <mat-icon>supervisor_account</mat-icon>
+        Access as Guardian
+      </a>
+    </div>
+  </div>
+</div>
