@@ -12,8 +12,8 @@
     <!-- Login Form -->
     <div class="login-form">
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username" placeholder="Enter your username">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" placeholder="Enter your email">
         <mat-icon matPrefix>person</mat-icon>
       </mat-form-field>
 
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <button mat-flat-button color="primary" (click)="onLogin()" class="login-btn"
-        [disabled]="isLoading || !username.trim() || !password.trim()">
+        [disabled]="isLoading || !email.trim() || !password.trim()">
         <span *ngIf="!isLoading">Sign In</span>
         <span *ngIf="isLoading">Signing in...</span>
       </button>

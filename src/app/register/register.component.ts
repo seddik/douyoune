@@ -40,7 +40,7 @@ export class RegisterComponent {
     this.debtsService.register(this.name, this.email, this.password).subscribe({
       next: (resp: any) => {
         this.isLoading = false;
-        console.log(resp);
+       // console.log(resp);
         if (resp.success) {
           this.router.navigate(['/login']);
         }

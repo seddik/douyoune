@@ -24,7 +24,7 @@ import { DebtsService } from '../services/debts.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  username = '';
+  email = '';
   password = '';
   isLoading = false;
   hidePassword = true;
@@ -33,12 +33,13 @@ export class LoginComponent {
 
   onLogin(): void {
     this.isLoading = true;
-    this.debtsService.login(this.username, this.password).subscribe({
+    this.debtsService.login(this.email, this.password).subscribe({
       next: (resp: any) => {
         this.isLoading = false;
         //console.log('Login success', resp);
         if (typeof window !== 'undefined' && window.localStorage) {
           localStorage.setItem('token', resp.token);
+          console.log(resp);
         }
         this.router.navigate(['/dashboard']);
       },
