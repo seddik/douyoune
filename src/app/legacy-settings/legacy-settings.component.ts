@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { DebtsService } from '../services/debts.service';
 
 @Component({
   selector: 'app-legacy-settings',
@@ -16,7 +17,7 @@ export class LegacySettingsComponent {
   // Mock legacy code
   legacyCode = 'XYZ - 778 - 992';
 
-  constructor(private router: Router, private clipboard: Clipboard) {}
+  constructor(private router: Router, private clipboard: Clipboard, private debtsService: DebtsService) { }
 
   goBack(): void {
     this.router.navigate(['/']);
@@ -38,5 +39,21 @@ export class LegacySettingsComponent {
       }
     }
     this.legacyCode = code;
+  }
+
+  onLogout(): void {
+    this.debtsService.logout().subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.removeItem('token');
+          document.location.reload();
+        }
+        this.router.navigate(['/login']);
+      },
+      error: (err: any) => {
+        console.error(err);
+      }
+    });
   }
 }

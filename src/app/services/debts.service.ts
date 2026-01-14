@@ -11,6 +11,8 @@ export class DebtsService {
   private addDebtUrl = 'http://localhost:6010/api/debts/add';
   private loginUrl = 'http://localhost:6010/api/login';
   private registerUrl = 'http://localhost:6010/api/register';
+  private logoutUrl = 'http://localhost:6010/api/logout';
+  
 
 
 
@@ -27,5 +29,8 @@ export class DebtsService {
   }
   addDebt(debt: any): Observable<any> {
     return this.http.post<any>(this.addDebtUrl, debt);
+  }
+  logout(): Observable<any> {
+    return this.http.post<any>(this.logoutUrl, {});
   }
 }

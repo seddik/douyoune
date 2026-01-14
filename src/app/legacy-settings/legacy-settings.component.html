@@ -9,7 +9,7 @@
   <!-- Content -->
   <div class="legacy-container">
     <h2 class="section-title">SHARE THIS CODE WITH YOUR HEIRS.</h2>
-    
+
     <p class="legacy-instruction">
       If you pass away, your family can use this code to view your debts without needing your password.
     </p>
@@ -22,5 +22,10 @@
       <button mat-flat-button (click)="copyCode()">Copy</button>
       <button mat-flat-button (click)="regenerateCode()">Regenerate</button>
     </div>
+  </div>
+
+  <!-- logout button -->
+  <div class="logout-link">
+    <button mat-flat-button (click)="onLogout()" class="logout-btn"><mat-icon>logout</mat-icon>Logout</button>
   </div>
 </div>
