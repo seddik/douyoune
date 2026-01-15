@@ -39,7 +39,8 @@ export class LoginComponent {
         //console.log('Login success', resp);
         if (typeof window !== 'undefined' && window.localStorage) {
           localStorage.setItem('token', resp.token);
-          console.log(resp);
+          localStorage.setItem('lcode', resp.lcode);
+          //  console.log(resp);
         }
         this.router.navigate(['/dashboard']);
       },

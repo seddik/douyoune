@@ -1,13 +1,14 @@
 <div class="app-container">
   <div class="guardian-container">
     <h1 class="guardian-title">Douyoune: HEIR ACCESS</h1>
-    
+
+
     <p class="guardian-instruction">
       Enter the Legacy Code provided by the deceased:
     </p>
 
     <mat-form-field appearance="outline" class="code-input">
-      <input matInput [(ngModel)]="enteredCode" placeholder="XYZ-778-992">
+      <input matInput [(ngModel)]="enteredCode" placeholder="Enter Legacy Code">
     </mat-form-field>
 
     <button mat-flat-button color="primary" (click)="viewLedger()" class="view-btn">

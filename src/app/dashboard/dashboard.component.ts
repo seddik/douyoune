@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,13 +21,19 @@ import { filter } from 'rxjs';
 export class DashboardComponent implements OnInit {
 
   private debtsService = inject(DebtsService);
+  //TODO: Remove the cdr
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
-    this.debtsService.getDebtsList().subscribe((resp) => {
-
-      this.debts = resp;
-      console.log(this.debts[0].id);
-
+    this.debtsService.getDebtsList().subscribe({
+      next: (resp) => {
+        this.debts = resp;
+        //TODO: Remove the cdr
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        // console.error('Error fetching debts:', err);
+      }
     });
 
   }
@@ -50,8 +56,8 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.debtsService.addDebt(result).subscribe((resp) => {
-          this.debts.push(resp);
-          console.log(resp);
+          // Reloading as requested to ensure visibility
+          window.location.reload();
         });
       }
     });
@@ -63,7 +69,7 @@ export class DashboardComponent implements OnInit {
   }
 
   viewEvidence(debt: any): void {
-    console.log('Viewing evidence for:', debt);
+    //console.log('Viewing evidence for:', debt);
     // Will open evidence dialog/view later
   }
 

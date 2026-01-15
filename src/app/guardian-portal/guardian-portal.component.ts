@@ -23,14 +23,16 @@ export class GuardianPortalComponent {
   // Input code from heir
   enteredCode = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   viewLedger(): void {
-    if (this.enteredCode.trim()) {
-      // In real app, would validate code with API
-      // For now, just navigate to dashboard
-      console.log('Accessing ledger with code:', this.enteredCode);
-      this.router.navigate(['/']);
+    if (this.enteredCode && this.enteredCode.trim()) {
+      //console.log('Navigating to ledger with code:', this.enteredCode);
+      this.router.navigate(['/guest-dashboard'], { queryParams: { code: this.enteredCode } });
+    } else {
+      alert('Please enter a code');
     }
   }
+
+
 }

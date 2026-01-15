@@ -12,7 +12,7 @@ export class DebtsService {
   private loginUrl = 'http://localhost:6010/api/login';
   private registerUrl = 'http://localhost:6010/api/register';
   private logoutUrl = 'http://localhost:6010/api/logout';
-  
+  private guestDebtsUrl = 'http://localhost:6010/api/debts/guest';
 
 
 
@@ -32,5 +32,8 @@ export class DebtsService {
   }
   logout(): Observable<any> {
     return this.http.post<any>(this.logoutUrl, {});
+  }
+  guestDebts(Gcode: string): Observable<{ debts_list: any[]; user_id: number; message: string }> {
+    return this.http.post<{ debts_list: any[]; user_id: number; message: string }>(this.guestDebtsUrl, { Gcode });
   }
 }

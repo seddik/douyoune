@@ -14,8 +14,8 @@ import { DebtsService } from '../services/debts.service';
   styleUrl: './legacy-settings.component.scss'
 })
 export class LegacySettingsComponent {
-  // Mock legacy code
-  legacyCode = 'XYZ - 778 - 992';
+
+  legacyCode = localStorage.getItem('lcode') || '';
 
   constructor(private router: Router, private clipboard: Clipboard, private debtsService: DebtsService) { }
 
@@ -28,31 +28,32 @@ export class LegacySettingsComponent {
     // Could show a snackbar here
   }
 
-  regenerateCode(): void {
-    // Generate a new random code
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 3; i++) {
-      if (i > 0) code += ' - ';
-      for (let j = 0; j < 3; j++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-    }
-    this.legacyCode = code;
-  }
+  /* regenerateCode(): void {
+     // Generate a new random code
+     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+     let code = '';
+     for (let i = 0; i < 3; i++) {
+       if (i > 0) code += ' - ';
+       for (let j = 0; j < 3; j++) {
+         code += chars.charAt(Math.floor(Math.random() * chars.length));
+       }
+     }
+     this.legacyCode = code;
+   }*/
 
   onLogout(): void {
     this.debtsService.logout().subscribe({
       next: (resp: any) => {
-        console.log(resp);
+       // console.log(resp);
         if (typeof window !== 'undefined' && window.localStorage) {
           localStorage.removeItem('token');
+          localStorage.removeItem('lcode');
           document.location.reload();
         }
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        console.error(err);
+       // console.error(err);
       }
     });
   }
