@@ -26,9 +26,12 @@ export class GuardianPortalComponent {
   constructor(private router: Router) { }
 
   viewLedger(): void {
-    if (this.enteredCode && this.enteredCode.trim()) {
-      //console.log('Navigating to ledger with code:', this.enteredCode);
-      this.router.navigate(['/guest-dashboard'], { queryParams: { code: this.enteredCode } });
+    if (this.enteredCode?.trim()) {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('gtoken', this.enteredCode)
+        
+      }
+      this.router.navigate(['/guest-dashboard']);
     } else {
       alert('Please enter a code');
     }

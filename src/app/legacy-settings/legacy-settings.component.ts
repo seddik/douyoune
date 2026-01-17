@@ -25,35 +25,23 @@ export class LegacySettingsComponent {
 
   copyCode(): void {
     this.clipboard.copy(this.legacyCode.replace(/ /g, ''));
-    // Could show a snackbar here
+
   }
 
-  /* regenerateCode(): void {
-     // Generate a new random code
-     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-     let code = '';
-     for (let i = 0; i < 3; i++) {
-       if (i > 0) code += ' - ';
-       for (let j = 0; j < 3; j++) {
-         code += chars.charAt(Math.floor(Math.random() * chars.length));
-       }
-     }
-     this.legacyCode = code;
-   }*/
 
   onLogout(): void {
     this.debtsService.logout().subscribe({
       next: (resp: any) => {
-       // console.log(resp);
+
         if (typeof window !== 'undefined' && window.localStorage) {
           localStorage.removeItem('token');
           localStorage.removeItem('lcode');
-          document.location.reload();
+
         }
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-       // console.error(err);
+
       }
     });
   }

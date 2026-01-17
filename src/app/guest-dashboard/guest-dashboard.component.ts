@@ -22,7 +22,6 @@ export class GuestDashboardComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
 
     debts_list: any[] = [];
-    user_id: number | null = null;
     isLoading = true;
     errorMessage: string = '';
 
@@ -30,32 +29,37 @@ export class GuestDashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
-            const gcode = params['code'];
-            if (gcode) {
-                this.verifyAndLoadDebts(gcode);
-            } else {
-                this.errorMessage = 'No guest code provided.';
-                this.isLoading = false;
+            if (typeof window !== 'undefined' && window.localStorage) {
+                const guest_code = localStorage.getItem('gtoken');
+                if (guest_code) {
+                    this.verifyAndLoadDebts(guest_code);
+                } else {
+                    this.errorMessage = 'No guest code provided.';
+                    this.isLoading = false;
+                }
             }
         });
     }
 
     verifyAndLoadDebts(gcode: string): void {
-        // console.log('Verifying code:', gcode);
+
         this.debtsService.guestDebts(gcode).subscribe({
             next: (response) => {
-                // console.log('API Response:', response);
-                if (response) {
+
+                if (response.success) {
                     // Map fields based on the user provided screenshot
-                    this.debts_list = response.debts_list || [];
-                    this.user_id = response.user_id;
+                    this.debts_list = response.list || [];
+
+                }
+                else {
+                    this.errorMessage = response.message
                 }
                 this.isLoading = false;
                 //TODO: Remove the cdr
                 this.cdr.detectChanges();
             },
             error: (err) => {
-                //  console.error('Error fetching debts', err);
+
                 this.errorMessage = 'Invalid code or error fetching records.';
                 this.isLoading = false;
                 //TODO: Remove the cdr
@@ -65,14 +69,10 @@ export class GuestDashboardComponent implements OnInit {
     }
 
     get totalAmount(): number {
-        return this.debts_list.reduce((total, debt) => total + (Number(debt.amount) || 0), 0);
+        return this.debts_list.reduce((total, debt) => total + (debt.amount * 1), 0);
     }
 
     viewEvidence(debt: any): void {
-        // console.log('Viewing evidence for:', debt);
-        if (debt.notes) {
-            alert('Note: ' + debt.notes);
-        }
     }
 
     formatAmount(amount: number): string {

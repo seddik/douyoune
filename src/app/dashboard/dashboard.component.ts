@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        // console.error('Error fetching debts:', err);
+
       }
     });
 
@@ -56,8 +56,9 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.debtsService.addDebt(result).subscribe((resp) => {
-          // Reloading as requested to ensure visibility
-          window.location.reload();
+          this.debts.push(resp);
+          // TODO : Remove CDR
+          this.cdr.detectChanges();
         });
       }
     });
@@ -69,7 +70,6 @@ export class DashboardComponent implements OnInit {
   }
 
   viewEvidence(debt: any): void {
-    //console.log('Viewing evidence for:', debt);
     // Will open evidence dialog/view later
   }
 

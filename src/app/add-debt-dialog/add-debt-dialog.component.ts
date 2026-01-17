@@ -40,7 +40,7 @@ export class AddDebtDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<AddDebtDialogComponent>) { }
 
   ngOnInit() {
-    //console.log("wink");
+
   }
 
   onCancel(): void {

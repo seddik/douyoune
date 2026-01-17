@@ -27,9 +27,7 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
-  //confirmPassword = '';
   hidePassword = true;
-  //hideConfirmPassword = true;
 
   constructor(private router: Router, private debtsService: DebtsService) { }
 
@@ -40,27 +38,22 @@ export class RegisterComponent {
     this.debtsService.register(this.name, this.email, this.password).subscribe({
       next: (resp: any) => {
         this.isLoading = false;
-       // console.log(resp);
+
         if (resp.success) {
           this.router.navigate(['/login']);
         }
       },
       error: (err: any) => {
         this.isLoading = false;
-        //console.error('Register failed', err);
+
       }
     });
   }
 
-  /*get passwordsMatch(): boolean {
-    return this.password === this.confirmPassword;
-  }*/
 
   get formValid(): boolean {
     return this.name.trim() !== '' &&
       this.email.trim() !== '' &&
       this.password.trim() !== '';
-    //this.confirmPassword.trim() !== '' &&
-    //this.passwordsMatch;
   }
 }

@@ -36,17 +36,16 @@ export class LoginComponent {
     this.debtsService.login(this.email, this.password).subscribe({
       next: (resp: any) => {
         this.isLoading = false;
-        //console.log('Login success', resp);
+
         if (typeof window !== 'undefined' && window.localStorage) {
           localStorage.setItem('token', resp.token);
           localStorage.setItem('lcode', resp.lcode);
-          //  console.log(resp);
         }
         this.router.navigate(['/dashboard']);
       },
       error: (err: any) => {
         this.isLoading = false;
-        // console.error('Login failed', err);
+
       }
     });
 
