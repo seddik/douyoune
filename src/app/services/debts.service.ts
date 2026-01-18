@@ -33,9 +33,7 @@ export class DebtsService {
   logout(): Observable<any> {
     return this.http.post<any>(this.logoutUrl, {});
   }
-  guestDebts(gcode: string): Observable<{
-    success: any; list: any; message: string
-  }> {
+  guestDebts(gcode: string): Observable<any> {
     return this.http.post<{ success: any; list: any; message: string }>(this.guestDebtsUrl, { gcode });
   }
 }

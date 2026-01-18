@@ -56,9 +56,15 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.debtsService.addDebt(result).subscribe((resp) => {
-          this.debts.push(resp);
-          // TODO : Remove CDR
-          this.cdr.detectChanges();
+          if (resp.success) {
+            this.debts.push(result);
+            dialogRef.close();
+            // TODO : Remove CDR
+            this.cdr.detectChanges();
+          }
+          else {
+            alert('failed to add debt');
+          }
         });
       }
     });

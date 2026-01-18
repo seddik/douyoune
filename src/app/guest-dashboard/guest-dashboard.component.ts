@@ -30,7 +30,7 @@ export class GuestDashboardComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
             if (typeof window !== 'undefined' && window.localStorage) {
-                const guest_code = localStorage.getItem('gtoken');
+                var guest_code = localStorage.getItem('gtoken');
                 if (guest_code) {
                     this.verifyAndLoadDebts(guest_code);
                 } else {

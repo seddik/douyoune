@@ -29,7 +29,7 @@ export class GuardianPortalComponent {
     if (this.enteredCode?.trim()) {
       if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.setItem('gtoken', this.enteredCode)
-        
+
       }
       this.router.navigate(['/guest-dashboard']);
     } else {

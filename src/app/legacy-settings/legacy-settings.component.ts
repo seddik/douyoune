@@ -25,7 +25,7 @@ export class LegacySettingsComponent {
 
   copyCode(): void {
     this.clipboard.copy(this.legacyCode.replace(/ /g, ''));
-
+    // Could show a snackbar here
   }
 
 
