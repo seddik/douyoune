@@ -83,4 +83,9 @@ export class DashboardComponent implements OnInit {
     return 'DA ' + amount.toLocaleString();
   }
 
+
+  debtdetails(debt: any): void {
+    this.router.navigate(['/debts-details']);
+  }
+
 }

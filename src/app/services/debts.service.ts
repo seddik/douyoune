@@ -5,7 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class DebtsService {
+  isguest(): boolean {
+
+    return !!localStorage.getItem('gtoken');
+  }
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:6010/api/debts/list';
   private addDebtUrl = 'http://localhost:6010/api/debts/add';

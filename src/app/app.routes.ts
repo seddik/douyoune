@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { GuestDashboardComponent } from './guest-dashboard/guest-dashboard.component';
+import { DebtDetails } from './debt-details/debt-details.component';
 
 
 
@@ -14,9 +15,10 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'guest-dashboard', component: GuestDashboardComponent, canActivate: [guestGuard] },
+  { path: 'guest-dashboard', component: GuestDashboardComponent }, //there was here a guestguard
   { path: '', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'legacy-settings', component: LegacySettingsComponent, canActivate: [authGuard] },
+  { path: 'debts-details', component: DebtDetails, }, // there was here an authguard
   { path: 'guardian', component: GuardianPortalComponent },
   { path: '**', redirectTo: '' }
 ];

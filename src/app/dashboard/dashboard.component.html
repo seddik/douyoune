@@ -16,7 +16,7 @@
   <!-- Debt List -->
   <div class="debt-list">
     @for (debt of debts; track debt.id) {
-    <div class="debt-card">
+    <div class="debt-card" (click)="debtdetails(debt)">
       <div class="creditor-name">{{ debt.name }}</div>
       <div class="debt-details">
         {{ formatAmount(debt.amount * 1) }}

@@ -82,4 +82,9 @@ export class GuestDashboardComponent implements OnInit {
     goBack(): void {
         this.router.navigate(['/guardian']);
     }
+
+
+    debtdetails(debt: any): void {
+        this.router.navigate(['/debts-details']);
+    }
 }
