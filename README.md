@@ -1,59 +1,105 @@
-# Douyoune
+# Douyoune Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+Douyoune is an Angular 21 debt-ledger app focused on two audiences:
 
-## Development server
+1. **Account owners** who log in, record debts, review the running total, and share a legacy access code.
+2. **Heirs or guardians** who can enter that legacy code to view the ledger without the account password.
 
-To start a local development server, run:
+The UI is built with Angular Material and talks to the Laravel API in `..\douyoune-api`.
 
-```bash
-ng serve
+## What the app currently does
+
+### Authenticated user flow
+
+- Register a new account
+- Sign in with email and password
+- View a private dashboard with the total outstanding amount
+- Add debt records with:
+  - creditor name
+  - amount
+  - currency
+  - debt direction (`I owe them` / `They owe me`)
+  - notes / evidence
+- Open **Legacy Settings** to copy the legacy code returned by the API
+- Log out
+
+### Guardian / heir flow
+
+- Open the guardian access screen
+- Enter a legacy code in the `XXXX-XXXX-XXXX` format
+- View the matching ledger in read-only mode
+
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/login` | Sign-in screen |
+| `/register` | Account creation |
+| `/` | Protected dashboard for the signed-in user |
+| `/legacy-settings` | Shows the legacy code and logout action |
+| `/guardian` | Guardian / heir access form |
+| `/guest-dashboard` | Ledger view loaded from a legacy code |
+| `/debts-details` | Debt details view |
+
+## API dependency
+
+The frontend currently calls these endpoints directly:
+
+- `POST /api/register`
+- `POST /api/login`
+- `POST /api/logout`
+- `GET /api/debts/list`
+- `POST /api/debts/add`
+- `POST /api/debts/guest`
+
+**Important:** the API base URL is hard-coded in `src/app/services/debts.service.ts` to:
+
+```ts
+http://localhost:6010
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+If your backend runs on another host or port, update that file before starting the frontend.
 
-## Code scaffolding
+## Local development
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+- Node.js LTS
+- Yarn 1.22.x
+- A running Douyoune API instance at `http://localhost:6010`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Install and run
 
 ```bash
-ng build
+yarn install
+yarn start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Angular serves the app at `http://localhost:4200` by default.
 
-## Running unit tests
+## Available scripts
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+| Command | Description |
+| --- | --- |
+| `yarn start` | Start the Angular dev server |
+| `yarn build` | Build the production bundle |
+| `yarn test` | Run the Angular test target |
+| `yarn watch` | Rebuild in development watch mode |
 
-```bash
-ng test
-```
+## Implementation notes
 
-## Running end-to-end tests
+- Authentication uses a bearer token stored in `localStorage` as `token`.
+- The legacy access code is stored in `localStorage` as `lcode`.
+- Guardian access stores the entered code in `localStorage` as `gtoken`.
+- An HTTP interceptor adds the bearer token to outgoing requests.
+- No frontend `*.spec.ts` files are currently committed, so the test command mainly validates the Angular test setup rather than app-specific behavior.
 
-For end-to-end (e2e) testing, run:
+## Working with the backend
 
-```bash
-ng e2e
-```
+The frontend assumes the API already supports:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Sanctum token authentication
+- a `users.lcode` field for the legacy code
+- a `debt` table that stores the ledger entries
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+See `..\douyoune-api\README.md` for the backend setup details and the current schema caveats.
